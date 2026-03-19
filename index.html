@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>For My Love ❤️</title>
+<link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+<style>
+* { margin:0; padding:0; box-sizing:border-box; }
+
+body {
+    height:100vh;
+    font-family: 'Poppins', sans-serif;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    overflow:hidden;
+    background: linear-gradient(270deg, #ff9a9e, #fad0c4, #ffdde1, #ff9a9e);
+    background-size: 800% 800%;
+    animation: gradientBG 15s ease infinite;
+}
+
+@keyframes gradientBG {
+    0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
+}
+
+.container {
+    text-align:center;
+    color:white;
+    z-index:2;
+}
+
+h1 {
+    font-family: 'Great Vibes', cursive;
+    font-size:4rem;
+    margin-bottom:20px;
+}
+
+p {
+    font-size:1.2rem;
+    max-width:500px;
+    margin:auto;
+}
+
+button {
+    margin-top:20px;
+    padding:12px 25px;
+    border:none;
+    border-radius:25px;
+    background:white;
+    color:#ff4d6d;
+    font-weight:bold;
+    cursor:pointer;
+}
+
+/* SLIDESHOW */
+.slideshow {
+    position:absolute;
+    width:100%;
+    height:100%;
+    top:0;
+    left:0;
+    z-index:0;
+}
+
+.slide {
+    position:absolute;
+    width:100%;
+    height:100%;
+    background-size:cover;
+    background-position:center;
+    opacity:0;
+    transition:opacity 2s ease-in-out;
+}
+
+.slide.active {
+    opacity:1;
+}
+
+/* HEARTS */
+.heart {
+    position:absolute;
+    width:20px;
+    height:20px;
+    background:red;
+    transform: rotate(45deg);
+    animation: floatUp 6s linear infinite;
+}
+
+.heart::before,
+.heart::after {
+    content:"";
+    position:absolute;
+    width:20px;
+    height:20px;
+    background:red;
+    border-radius:50%;
+}
+
+.heart::before { top:-10px; }
+.heart::after { left:-10px; }
+
+@keyframes floatUp {
+    0% { transform: translateY(100vh) rotate(45deg); }
+    100% { transform: translateY(-10vh) rotate(45deg); }
+}
+</style>
+</head>
+<body>
+
+<!-- MUSIC -->
+<audio id="bgMusic" loop>
+    <source src="https://www.bensound.com/bensound-music/bensound-romantic.mp3" type="audio/mpeg">
+</audio>
+
+<!-- SLIDESHOW -->
+<div class="slideshow">
+    <div class="slide active" style="background-image:url('DSC03346.jpg');"></div>
+    <div class="slide" style="background-image:url('DSC03389.jpg');"></div>
+    <div class="slide" style="background-image:url('DSC03411.jpg');"></div>
+    <div class="slide" style="background-image:url('DSC03557.jpg');"></div>
+    <div class="slide" style="background-image:url('DSC07024.jpg');"></div>
+</div>
+
+<div class="container">
+    <h1>Dear Jibuuuu ❤️</h1>
+    <p id="text"></p>
+    <p id="timer" style="margin-top:15px; font-size:1rem;"></p>
+    <button onclick="startLove()">Click for a Surprise 💌</button>
+</div>
+
+<script>
+
+// TYPEWRITER
+const msg = "You are my today, my tomorrow, and my forever. Every heartbeat whispers your name ❤️";
+let i=0;
+function typeWriter(){
+ if(i<msg.length){
+  document.getElementById("text").innerHTML += msg.charAt(i);
+  i++;
+  setTimeout(typeWriter,50);
+ }
+}
+
+function startLove(){
+ document.getElementById("bgMusic").play();
+ typeWriter();
+}
+
+// SLIDESHOW
+let slides=document.querySelectorAll(".slide");
+let index=0;
+setInterval(()=>{
+ slides[index].classList.remove("active");
+ index=(index+1)%slides.length;
+ slides[index].classList.add("active");
+},4000);
+
+// HEARTS
+function createHeart(){
+ let heart=document.createElement("div");
+ heart.classList.add("heart");
+ heart.style.left=Math.random()*window.innerWidth+"px";
+ document.body.appendChild(heart);
+ setTimeout(()=>heart.remove(),6000);
+}
+setInterval(createHeart,300);
+
+const messages = [
+ "You are my today, my tomorrow, and my forever ❤️",
+ "Every moment with you is my favorite memory 💕",
+ "I fall in love with you more every single day 🌹",
+ "You are the best thing that ever happened to me 💖"
+];
+
+let msgIndex = 0;
+
+function changeMessage() {
+  const text = document.getElementById("text");
+  text.innerHTML = messages[msgIndex];
+  msgIndex = (msgIndex + 1) % messages.length;
+}
+
+setInterval(changeMessage, 4000);
+
+
+const startDate = new Date("2023-01-01"); // CHANGE THIS DATE
+
+function updateTimer() {
+  const now = new Date();
+  const diff = now - startDate;
+
+  const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+  const hours = Math.floor((diff / (1000 * 60 * 60)) % 24);
+
+  document.getElementById("timer").innerHTML =
+    `We have been in love for ${days} days and ${hours} hours ❤️`;
+}
+
+setInterval(updateTimer, 1000);
+updateTimer();
+
+setTimeout(() => {
+  alert("You are mine forever… and I am yours ❤️");
+}, 15000);
+
+</script>
+
+</body>
+</html>
