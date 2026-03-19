@@ -111,8 +111,8 @@ button {
 <body>
 
 <!-- MUSIC -->
-<audio id="bgMusic" loop>
-    <source src="https://www.bensound.com/bensound-music/bensound-romantic.mp3" type="audio/mpeg">
+<audio id="bgMusic" loop preload="auto">
+  <source src="love.MP3" type="audio/mpeg">
 </audio>
 
 <!-- SLIDESHOW -->
@@ -129,6 +129,19 @@ button {
     <p id="text"></p>
     <p id="timer" style="margin-top:15px; font-size:1rem;"></p>
     <button onclick="startLove()">Click for a Surprise 💌</button>
+
+
+    <div id="proposal" style="margin-top:30px; display: none;">
+  <h2>Will you always be mine? 💍❤️</h2>
+  
+  <button onclick="sayYes()" style="margin:10px;">Yes 💖</button>
+  
+  <button id="noBtn" style="position:absolute; margin:10px;">
+    No 😢
+  </button>
+
+</div>
+
 </div>
 
 <script>
@@ -145,8 +158,23 @@ function typeWriter(){
 }
 
 function startLove(){
- document.getElementById("bgMusic").play();
- typeWriter();
+  document.getElementById("bgMusic").play();
+  typeWriter();
+  
+  setTimeout(() => {
+    document.getElementById("proposal").style.display = "block";
+  }, 1000);
+}
+
+const noBtn = document.getElementById("noBtn");
+
+noBtn.addEventListener("mouseover", () => {
+  noBtn.style.top = Math.random() * window.innerHeight + "px";
+  noBtn.style.left = Math.random() * window.innerWidth + "px";
+});
+
+function sayYes() {
+  alert("I knew it! I love you forever ❤️🥹");
 }
 
 // SLIDESHOW
@@ -186,7 +214,7 @@ function changeMessage() {
 setInterval(changeMessage, 4000);
 
 
-const startDate = new Date("2023-01-01"); // CHANGE THIS DATE
+const startDate = new Date("2019-03-06"); // CHANGE THIS DATE
 
 function updateTimer() {
   const now = new Date();
